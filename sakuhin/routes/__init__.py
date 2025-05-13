@@ -1,0 +1,1 @@
+# Blueprint初期化

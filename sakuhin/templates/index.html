@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- メタ情報とタイトル設定 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タスク管理</title>
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <!-- ページタイトル -->
+    <h1>タスク管理システム</h1>
+    
+    <!-- タスク追加フォーム -->
+    <div class="task-form-container">
+        <!-- POSTメソッドでフォームデータを送信 -->
+        <form method="POST" action="/" class="task-form">
+            <!-- タスク内容入力フィールド -->
+            <div class="form-group">
+                <label>タスク内容：</label>
+                <input type="text" name="content" required class="form-control">
+            </div>
+
+            <!-- 優先度選択フィールド -->
+            <div class="form-group">
+                <label>優先度：</label>
+                <select name="priority" required class="form-control">
+                    <option value="低">低</option>
+                    <option value="普" selected>普</option>
+                    <option value="高">高</option>
+                </select>
+            </div>
+
+            <!-- 期日入力フィールド -->
+            <div class="form-group">
+                <label>期日：</label>
+                <input type="date" name="deadline" class="form-control">
+            </div>
+
+            <!-- カテゴリ選択フィールド -->
+            <div class="form-group">
+                <label>カテゴリ：</label>
+                <select name="category" required class="form-control">
+                    <option value="仕事">仕事</option>
+                    <option value="プライベート">プライベート</option>
+                </select>
+            </div>
+
+            <!-- タスク追加ボタン -->
+            <button type="submit" class="add-button">タスクを追加</button>
+        </form>
+    </div>
+
+    <!-- タスク一覧表示エリア -->
+    <div class="task-list-container">
+        <h2>タスクリスト</h2>
+        <!-- タスク表示フィルターボタン -->
+        <div class="button-group">
+            <!-- 完了状態フィルター -->
+            <div class="filter-section">
+                <h3>完了状態</h3>
+                <a href="{{ url_for('main.index', show_completed='false', category=selected_category) }}" 
+                   class="filter-button {% if not show_completed %}active{% endif %}">現在のタスク</a>
+                <a href="{{ url_for('main.index', show_completed='true', category=selected_category) }}" 
+                   class="filter-button {% if show_completed %}active{% endif %}">完了タスクのみ表示</a>
+            </div>
+            
+            <!-- カテゴリフィルター -->
+            <div class="filter-section">
+                <h3>カテゴリ</h3>
+                <a href="{{ url_for('main.index', show_completed=show_completed|string|lower, category='all') }}" 
+                   class="filter-button {% if selected_category == 'all' %}active{% endif %}">
+                    すべて
+                    {% for cat in category_counts if cat.category == 'all' %}
+                        <span class="count">({{ cat.count }})</span>
+                    {% endfor %}
+                </a>
+                <a href="{{ url_for('main.index', show_completed=show_completed|string|lower, category='仕事') }}" 
+                   class="filter-button {% if selected_category == '仕事' %}active{% endif %}">
+                    仕事
+                    {% for cat in category_counts if cat.category == '仕事' %}
+                        <span class="count">({{ cat.count }})</span>
+                    {% endfor %}
+                </a>
+                <a href="{{ url_for('main.index', show_completed=show_completed|string|lower, category='プライベート') }}" 
+                   class="filter-button {% if selected_category == 'プライベート' %}active{% endif %}">
+                    プライベート
+                    {% for cat in category_counts if cat.category == 'プライベート' %}
+                        <span class="count">({{ cat.count }})</span>
+                    {% endfor %}
+                </a>
+            </div>
+        </div>
+
+        <!-- タスクリスト -->
+        <div class="task-list">
+            {% for task in tasks %}
+                <!-- 個別タスクアイテム（完了状態に応じてクラスを動的に設定） -->
+                <div class="task-item {% if task.completed %}completed{% endif %}">
+                    <div class="task-content">
+                        <!-- 完了状態切り替えフォーム -->
+                        <form action="{{ url_for('main.toggle_complete', task_id=task.id) }}" method="POST" class="checkbox-form">
+                            <input type="checkbox" {% if task.completed %}checked{% endif %} 
+                                   onchange="this.form.submit()" class="task-checkbox">
+                        </form>
+                        <!-- タスク情報表示 -->
+                        <span class="task-text">{{ task.content }}</span>
+                        <span class="task-priority priority-{{ task.priority }}">{{ task.priority }}</span>
+                        <span class="task-deadline">{{ task.deadline }}</span>
+                        <span class="task-category category-{{ task.category }}">{{ task.category }}</span>
+                    </div>
+                    <!-- タスク操作ボタン -->
+                    <div class="task-actions">
+                        {% if not task.completed %}
+                            <!-- 未完了タスクのみ編集可能 -->
+                            <a href="{{ url_for('edit.edit', task_id=task.id) }}" class="action-button edit">編集</a>
+                        {% endif %}
+                        <!-- 削除ボタン（完了済みタスクも削除可能） -->
+                        <a href="{{ url_for('delete.delete', task_id=task.id) }}" class="action-button delete">削除</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

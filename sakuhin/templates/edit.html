@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- メタ情報とタイトル設定 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タスク編集</title>
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <!-- ページタイトル -->
+    <h1>タスク編集</h1>
+    <!-- タスク編集フォーム -->
+    <div class="task-form-container">
+        <!-- POSTメソッドでフォームデータを送信（action属性は空で現在のURLに送信） -->
+        <form method="POST" action="" class="task-form">
+            <!-- タスク内容入力フィールド（現在の値を初期値として設定） -->
+            <div class="form-group">
+                <label>タスク内容：</label>
+                <input type="text" name="content" value="{{ task.content }}" required class="form-control">
+            </div>
+            <!-- 優先度選択フィールド（現在の値を初期値として設定） -->
+            <div class="form-group">
+                <label>優先度：</label>
+                <select name="priority" required class="form-control">
+                    <option value="低" {% if task.priority == '低' %}selected{% endif %}>低</option>
+                    <option value="普" {% if task.priority == '普' %}selected{% endif %}>普</option>
+                    <option value="高" {% if task.priority == '高' %}selected{% endif %}>高</option>
+                </select>
+            </div>
+            <!-- 期日入力フィールド（現在の値を初期値として設定） -->
+            <div class="form-group">
+                <label>期日：</label>
+                <input type="date" name="deadline" value="{{ task.deadline }}" class="form-control">
+            </div>
+            <!-- カテゴリ選択フィールド（現在の値を初期値として設定） -->
+            <div class="form-group">
+                <label>カテゴリ：</label>
+                <select name="category" required class="form-control">
+                    <option value="仕事" {% if task.category == '仕事' %}selected{% endif %}>仕事</option>
+                    <option value="プライベート" {% if task.category == 'プライベート' %}selected{% endif %}>プライベート</option>
+                </select>
+            </div>
+            <!-- フォーム操作ボタン -->
+            <button type="submit" class="add-button">更新</button>
+            <a href="{{ url_for('main.index') }}" class="action-button">キャンセル</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

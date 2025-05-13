@@ -1,0 +1,318 @@
+/* 全体のスタイル設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 基本スタイル設定 */
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* コンテナのレイアウト設定 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 見出しのスタイル */
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+/* フォーム関連のスタイル */
+.task-form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* フォームのグリッドレイアウト */
+.task-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+/* フォームグループのスタイル */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* フォームラベルのスタイル */
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+/* フォームコントロールの共通スタイル */
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* 追加ボタンのスタイル */
+.add-button {
+    grid-column: 1 / -1;
+    background-color: #3498db;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+/* 追加ボタンのホバー効果 */
+.add-button:hover {
+    background-color: #2980b9;
+}
+
+/* タスクリストコンテナのスタイル */
+.task-list-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* フィルターセクションのスタイル */
+.filter-section {
+    margin-bottom: 1rem;
+}
+
+.filter-section h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+/* フィルターボタングループのスタイル更新 */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+/* フィルターボタンのスタイル更新 */
+.filter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: #333;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* タスク数表示のスタイル */
+.count {
+    font-size: 0.875rem;
+    color: #666;
+    background-color: #eee;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+}
+
+/* アクティブなフィルターボタンのスタイル */
+.filter-button.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+/* タスクリストのレイアウト */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 個別タスクアイテムのスタイル */
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+
+/* タスクアイテムのホバー効果 */
+.task-item:hover {
+    transform: translateX(5px);
+}
+
+/* タスク内容のレイアウト */
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* チェックボックスフォームのスタイル */
+.checkbox-form {
+    margin: 0;
+}
+
+/* タスクチェックボックスのスタイル */
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* タスクテキストのスタイル */
+.task-text {
+    flex: 1;
+}
+
+/* 優先度表示のスタイル */
+.task-priority {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* カテゴリ表示のスタイル */
+.task-category {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* カテゴリ別の色分け */
+.category-仕事 {
+    background-color: #3498db;
+    color: white;
+}
+
+.category-プライベート {
+    background-color: #2ecc71;
+    color: white;
+}
+
+/* 優先度別の色分け */
+.priority-高 {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.priority-普 {
+    background-color: #ffd93d;
+}
+
+.priority-低 {
+    background-color: #6bff6b;
+}
+
+/* タスク操作ボタンのレイアウト */
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* アクションボタンの共通スタイル */
+.action-button {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background-color 0.3s;
+}
+
+/* 編集ボタンのスタイル */
+.action-button.edit {
+    background-color: #3498db;
+    color: white;
+}
+
+/* 完了ボタンのスタイル */
+.action-button.complete {
+    background-color: #2ecc71;
+    color: white;
+}
+
+/* 削除ボタンのスタイル */
+.action-button.delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* 完了済みタスクのスタイル */
+.task-item.completed {
+    opacity: 0.7;
+    background-color: #e8e8e8;
+}
+
+/* 完了済みタスクのテキストスタイル */
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: #666;
+}
+
+/* レスポンシブデザインの設定 */
+@media (max-width: 768px) {
+    /* モバイル表示時のコンテナパディング調整 */
+    .container {
+        padding: 1rem;
+    }
+
+    /* モバイル表示時のフォームレイアウト調整 */
+    .task-form {
+        grid-template-columns: 1fr;
+    }
+
+    /* モバイル表示時のタスクアイテムレイアウト調整 */
+    .task-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* モバイル表示時のタスク内容レイアウト調整 */
+    .task-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* モバイル表示時のアクションボタンレイアウト調整 */
+    .task-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-button {
+        width: 100%;
+        margin-right: 0;
+        justify-content: center;
+    }
+    
+    .button-group {
+        padding: 0.5rem;
+    }
+}
